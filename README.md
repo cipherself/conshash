@@ -1,6 +1,11 @@
 # conshash
 
+[![Build Status]https://travis-ci.org/skeuomorf/conshash.svg?branch=master](https://github.com/skeuomorf/conshash)
+
 A library to do consistent hashing in Rust.
+
+## Crate
+Get the crate at [conshash](https://crates.io/crates/conshash)
 
 ## Example
 
