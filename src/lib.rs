@@ -5,7 +5,7 @@
 //!
 //! use std::hash::{hash, SipHasher};
 //!
-//! #[derive(Clone , Debug)]
+//! #[derive(Clone, Debug)]
 //! struct TestNode {
 //!     host_name: &'static str,
 //!     ip_address: &'static str,
@@ -97,7 +97,7 @@ mod tests {
     use std::string::ToString;
     use std::hash::{hash, SipHasher};
 
-    #[derive(Clone , Debug)]
+    #[derive(Clone, Debug)]
     struct TestNode {
         host_name: &'static str,
         ip_address: &'static str,
