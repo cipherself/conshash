@@ -1,6 +1,6 @@
 [package]
 name = "conshash"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Mohammed Attia <skeuomorf@gmail.com>"]
 description = "A library to do consistent hashing in Rust."
 repository = "https://github.com/skeuomorf/conshash"

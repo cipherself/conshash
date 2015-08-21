@@ -3,7 +3,7 @@
 //! ```Rust
 //! extern crate conshash;
 //!
-//! use std::hash::{hash, SipHasher};
+//! use std::hash::SipHasher;
 //!
 //! #[derive(Clone, Debug)]
 //! struct TestNode {
@@ -29,14 +29,18 @@
 //! ```
 
 
-#![feature(hash)]
-
-use std::hash::{hash, SipHasher};
+use std::hash::{Hash, Hasher, SipHasher};
 use std::clone::Clone;
 use std::fmt::Debug;
 use std::string::ToString;
 use std::collections::BTreeMap;
 
+
+pub fn hash<T: Hash, H:Hasher + Default>(value: &T) -> u64 {
+    let mut h: H = Default::default();
+    value.hash(&mut h);
+    h.finish()
+}
 
 pub struct Ring <T: Clone + ToString + Debug> {
     num_replicas: usize,
@@ -95,7 +99,7 @@ mod tests {
 
     use super::*;
     use std::string::ToString;
-    use std::hash::{hash, SipHasher};
+    use std::hash::SipHasher;
 
     #[derive(Clone, Debug)]
     struct TestNode {
