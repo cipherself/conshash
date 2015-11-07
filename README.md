@@ -12,7 +12,7 @@ Get the crate at [conshash](https://crates.io/crates/conshash)
  ```Rust
 extern crate conshash;
 
-use std::hash::{hash, SipHasher};
+use std::hash::SipHasher;
 
 #[derive(Clone , Debug)]
 struct TestNode {
