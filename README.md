@@ -1,6 +1,6 @@
 # conshash
 
-[![Build Status](https://travis-ci.org/skeuomorf/conshash.svg?branch=master)](https://travis-ci.org/skeuomorf/conshash)
+[![Build Status](https://travis-ci.org/muattiyah/conshash.svg?branch=master)](https://travis-ci.org/muattiyah/conshash)
 
 A library to do consistent hashing in Rust.
 
@@ -12,7 +12,6 @@ Get the crate at [conshash](https://crates.io/crates/conshash)
  ```Rust
 extern crate conshash;
 
-use std::hash::SipHasher;
 
 #[derive(Clone , Debug)]
 struct TestNode {
@@ -33,7 +32,7 @@ let test_node = TestNode{host_name: "Skynet", ip_address: "192.168.1.1", port: 4
 hash_ring.add_node(&test_node);
 hash_ring.remove_node(&test_node);
 hash_ring.add_node(&test_node);
-let x = hash_ring.get_node(hash::<_, SipHasher>(&format!("{}{}", test_node.to_string(), 0.to_string())));
+let x = hash_ring.get_node(hash(&format!("{}{}", test_node.to_string(), 0.to_string())));
 // x is the node in the form of an Option<T> where T: Clone + ToString + Debug
 ```
 
