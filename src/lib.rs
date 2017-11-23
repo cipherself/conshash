@@ -3,7 +3,7 @@
 //! ```Rust
 //! extern crate conshash;
 //!
-//! use std::hash::SipHasher;
+//! use std::collections::hash_map::DefaultHasher;
 //!
 //! #[derive(Clone, Debug)]
 //! struct TestNode {
@@ -24,20 +24,21 @@
 //! hash_ring.add_node(&test_node);
 //! hash_ring.remove_node(&test_node);
 //! hash_ring.add_node(&test_node);
-//! let x = hash_ring.get_node(hash::<_, SipHasher>(&format!("{}{}", test_node.to_string(), 0.to_string())));
+//! let x = hash_ring.get_node(hash(&format!("{}{}", test_node.to_string(), 0.to_string())));
 //! // x is the node in the form of an Option<T> where T: Clone + ToString + Debug
 //! ```
 
 
-use std::hash::{Hash, Hasher, SipHasher};
+use std::collections::hash_map::DefaultHasher;
+use std::hash::{Hash, Hasher};
 use std::clone::Clone;
 use std::fmt::Debug;
 use std::string::ToString;
 use std::collections::BTreeMap;
 
 
-pub fn hash<T: Hash, H:Hasher + Default>(value: &T) -> u64 {
-    let mut h: H = Default::default();
+pub fn hash<T: Hash>(value: &T) -> u64 {
+    let mut h = DefaultHasher::new();
     value.hash(&mut h);
     h.finish()
 }
@@ -70,7 +71,7 @@ impl <T> Ring<T> where T: Clone + ToString + Debug {
 
     pub fn add_node(&mut self, node: &T) {
         for i in 0..self.num_replicas {
-            let key = hash::<_, SipHasher>(&format!("{}{}", node.to_string(), i.to_string()));
+            let key = hash(&format!("{}{}", node.to_string(), i.to_string()));
             self.ring.insert(key, node.clone());
         }
     }
@@ -79,7 +80,7 @@ impl <T> Ring<T> where T: Clone + ToString + Debug {
         assert!(!self.ring.is_empty());
 
         for i in 0..self.num_replicas {
-            let key = hash::<_, SipHasher>(&format!("{}{}", node.to_string(), i.to_string()));
+            let key = hash(&format!("{}{}", node.to_string(), i.to_string()));
             self.ring.remove(&key);
         }
     }
@@ -99,7 +100,6 @@ mod tests {
 
     use super::*;
     use std::string::ToString;
-    use std::hash::SipHasher;
 
     #[derive(Clone, Debug)]
     struct TestNode {
@@ -141,7 +141,7 @@ mod tests {
 
         let test_node = TestNode{host_name: "Skynet", ip_address: "192.168.1.1", port: 42};
         hash_ring.add_node(&test_node);
-        let my_node = hash_ring.get_node(hash::<_, SipHasher>(&test_node.to_string()));
+        let my_node = hash_ring.get_node(hash(&test_node.to_string()));
 
         assert_eq!(my_node.unwrap().host_name, test_node.host_name);
         assert_eq!(my_node.unwrap().ip_address, test_node.ip_address);
@@ -160,9 +160,9 @@ mod tests {
         let v = vec![test_node1.clone(), test_node2.clone(), test_node3.clone()];
         hash_ring.add_nodes(&v);
 
-        let node1 = hash_ring.get_node(hash::<_, SipHasher>(&format!("{}{}", test_node1.to_string(), 0.to_string())));
-        let node2 = hash_ring.get_node(hash::<_, SipHasher>(&format!("{}{}", test_node2.to_string(), 0.to_string())));
-        let node3 = hash_ring.get_node(hash::<_, SipHasher>(&format!("{}{}", test_node3.to_string(), 0.to_string())));
+        let node1 = hash_ring.get_node(hash(&format!("{}{}", test_node1.to_string(), 0.to_string())));
+        let node2 = hash_ring.get_node(hash(&format!("{}{}", test_node2.to_string(), 0.to_string())));
+        let node3 = hash_ring.get_node(hash(&format!("{}{}", test_node3.to_string(), 0.to_string())));
 
         assert_eq!(node1.unwrap().host_name, test_node1.host_name);
         assert_eq!(node1.unwrap().ip_address, test_node1.ip_address);

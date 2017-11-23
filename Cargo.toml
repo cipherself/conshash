@@ -1,9 +1,9 @@
 [package]
 name = "conshash"
-version = "0.1.2"
-authors = ["Mohammed Attia <skeuomorf@gmail.com>"]
+version = "0.1.3"
+authors = ["Muhammad Attiyah <mu.attiyah@gmail.com>"]
 description = "A library to do consistent hashing in Rust."
-repository = "https://github.com/skeuomorf/conshash"
+repository = "https://github.com/muattiyah/conshash"
 readme = "README.md"
 keywords = ["consistent-hashing", "distributed-systems", "hashing", "hashring"]
 license = "MIT"
