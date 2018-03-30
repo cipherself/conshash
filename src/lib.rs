@@ -1,6 +1,6 @@
 //! #Example
 //!
-//! ```Rust
+//! ```rust
 //! extern crate conshash;
 //!
 //! use std::collections::hash_map::DefaultHasher;
