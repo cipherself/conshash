@@ -1,6 +1,6 @@
 //! #Example
 //!
-//! ```Rust
+//! ```rust
 //! extern crate conshash;
 //!
 //! use std::collections::hash_map::DefaultHasher;
@@ -18,13 +18,13 @@
 //!     }
 //! }
 //!
-//! let mut hash_ring = Ring::new(5);
+//! let mut hash_ring = conshash::Ring::new(5);
 //!
 //! let test_node = TestNode{host_name: "Skynet", ip_address: "192.168.1.1", port: 42};
 //! hash_ring.add_node(&test_node);
 //! hash_ring.remove_node(&test_node);
 //! hash_ring.add_node(&test_node);
-//! let x = hash_ring.get_node(hash(&format!("{}{}", test_node.to_string(), 0.to_string())));
+//! let x = hash_ring.get_node(conshash::hash(&format!("{}{}", test_node.to_string(), 0.to_string())));
 //! // x is the node in the form of an Option<T> where T: Clone + ToString + Debug
 //! ```
 
