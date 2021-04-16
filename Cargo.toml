@@ -2,6 +2,7 @@
 name = "conshash"
 version = "0.1.4"
 authors = ["Muhammad Attiyah <mu.attiyah@gmail.com>"]
+edition = "2018"
 description = "A library to do consistent hashing in Rust."
 repository = "https://github.com/muattiyah/conshash"
 readme = "README.md"
