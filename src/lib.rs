@@ -81,7 +81,9 @@ where
     }
 
     pub fn remove_node(&mut self, node: &T) {
-        assert!(!self.ring.is_empty());
+        if self.ring.is_empty() {
+            return;
+        }
 
         for i in 0..self.num_replicas {
             let key = hash(&format!("{}{}", node.to_string(), i.to_string()));
@@ -90,7 +92,9 @@ where
     }
 
     pub fn get_node(&self, key: u64) -> Option<&T> {
-        assert!(!self.ring.is_empty());
+        if self.ring.is_empty() {
+            return None;
+        }
         let mut keys = self.ring.keys();
         keys.find(|k| *k >= &key)
             .and_then(|k| self.ring.get(k))
