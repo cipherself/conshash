@@ -1,10 +1,17 @@
 [package]
 name = "conshash"
-version = "0.1.4"
-authors = ["Muhammad Attiyah <mu.attiyah@gmail.com>"]
-edition = "2018"
+version = "0.2.0"
+authors = ["Mohamed Attia <gh@mohamed.computer>"]
+edition = "2021"
+rust-version = "1.74"
 description = "A library to do consistent hashing in Rust."
-repository = "https://github.com/muattiyah/conshash"
+repository = "https://github.com/cipherself/conshash"
+documentation = "https://docs.rs/conshash"
 readme = "README.md"
 keywords = ["consistent-hashing", "distributed-systems", "hashing", "hashring"]
 license = "MIT"
+categories = ["algorithms", "data-structures"]
+include = ["src/**", "tests/**", "README.md", "CHANGELOG.md", "LICENSE", "Cargo.toml"]
+
+[dependencies]
+siphasher = { version = "1.0.1", default-features = false }
